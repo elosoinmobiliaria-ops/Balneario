@@ -1,0 +1,41 @@
+flowchart TD
+    A([1. Contacto añadido a lista]) --> B[2. Mail 1: Bienvenida]
+    B --> Wait1[Esperar 1 día]
+    Wait1 --> C{3. ¿Hace CLIC en el correo?}
+
+    %% RAMA A: HACE CLIC
+    C -- Sí (3.1) --> D{¿Envía Formulario / WhatsApp?}
+    
+    %% RAMA A1: RESERVA CITA (EL OBJETIVO)
+    D -- Sí (3.1.1) --> E[Mail: Confirmación de Cita]
+    E --> F[Mail: Recordatorio 1 día antes cita]
+    F --> G[Visita al Inmueble]
+    G --> H[Mail: Entrega Código Sorteo]
+    H --> I[Mail: Recordatorio 1 día antes Sorteo]
+    I --> J[Mail: Recordatorio Día del Sorteo]
+    J --> K[Mail: Resultados Sorteo 2 días después]
+    K --> Fin1([SALIDA])
+
+    %% RAMA A2: HACE CLIC PERO NO RESERVA
+    D -- No (3.1.2) --> L[Esperar 3 días]
+    L --> M[Mail: Recordatorio Persuasivo]
+    M -- Envía --> E
+    M -- No Envía --> N[Esperar 3 días]
+    N --> O[Mail: Recordatorio Más Explicativo]
+    O -- Envía --> E
+    O -- No Envía --> P[Esperar a 7 días antes del fin]
+    P --> Q[Mail: Última Oportunidad]
+    Q -- Envía --> E
+    Q -- No Envía --> Fin2([SALIDA])
+
+    %% RAMA B: NO HACE CLIC
+    C -- No (3.2) --> R[Esperar 3 días]
+    R --> S[Mail: Recordatorio Persuasivo]
+    S -- Hace Clic --> D
+    S -- No Hace Clic --> T[Esperar 3 días]
+    T --> U[Mail: Recordatorio Más Explicativo]
+    U -- Hace Clic --> D
+    U -- No Hace Clic --> V[Esperar a 7 días antes del fin]
+    V --> W[Mail: Última Oportunidad]
+    W -- Hace Clic --> D
+    W -- No Hace Clic --> Fin3([SALIDA])
